@@ -21,7 +21,7 @@ pipeline {
                 powershell label: '', script: 'mvn clean package'
                 script {
                     if (params.sonar == true) {                
-                        withSonarQubeEnv {
+                        withSonarQubeEnv(credentialsId: 'VMsonar') {
                             sh 'mvn sonar:sonar'
                         }
                     }
