@@ -2,7 +2,7 @@ pipeline {
 
     agent any
     
-    properties([[$class: 'JiraProjectProperty'], parameters([booleanParam(defaultValue: false, description: '', name: 'sonar'), booleanParam(defaultValue: false, description: '', name: 'deploy')]), pipelineTriggers([pollSCM('* * * * *')])])
+    options([[$class: 'JiraProjectProperty'], parameters([booleanParam(defaultValue: false, description: '', name: 'sonar'), booleanParam(defaultValue: false, description: '', name: 'deploy')]), pipelineTriggers([pollSCM('* * * * *')])])
     
     stages {
         
