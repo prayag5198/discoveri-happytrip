@@ -14,10 +14,11 @@ pipeline {
                 maven 'Maven'
             }
             steps {
-                powershell label: '', script: 'mvn clean package'
+                //powershell label: '', script: 'mvn clean package'
                 script{
                 if (${params.sonar} == 1) {
-                    sh label: '', script: 'mvn sonar:sonar'
+                    mvn clean install
+                    mvn sonar:sonar
                 }
                 }
                // if test ${params.sonar} -eq 1 
