@@ -37,7 +37,6 @@ pipeline {
                 maven 'Maven'
             }
             when {
-                 Only say hello if a "greeting" is requested
                 expression { params.deploy == true }
             }
             steps {
