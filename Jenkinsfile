@@ -13,12 +13,17 @@ pipeline {
                 jdk 'jdk8'
                 maven 'Maven'
             }
-            when {
+            //when {
                 // Only say hello if a "greeting" is requested
-                expression { params.sonar == true }
-            }
+             //   expression { params.sonar == true }
+            //}
             steps {   
-                    powershell label: '', script: 'mvn clean package'
+                    //powershell label: '', script: 'mvn clean package'
+                script {
+                    if (params.sonar == true) {
+                        echo 'I only execute on the master branch'
+                    }
+                }
             }
              
         }
