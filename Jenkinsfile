@@ -21,7 +21,8 @@ pipeline {
                     //powershell label: '', script: 'mvn clean package'
                 script {
                     if (params.sonar == true) {
-                        echo 'I only execute on the master branch'
+                        powershell label: '', script: 'mvn clean package'
+                        //echo 'I only execute on the master branch'
                     }
                 }
             }
