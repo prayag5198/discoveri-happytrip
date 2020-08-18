@@ -18,7 +18,7 @@ pipeline {
                 expression { params.sonar == true }
             }
             steps {   
-                //powershell label: '', script: 'mvn clean package'               
+                powershell label: '', script: 'mvn clean package'               
                 withSonarQubeEnv('sonar') {
                       sh 'mvn sonar:sonar'
                 }
