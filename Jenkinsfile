@@ -8,28 +8,23 @@ pipeline {
     }    
     stages {
         
-      /*  stage('build') {
+        stage('build') {
             tools {
                 jdk 'jdk8'
                 maven 'Maven'
             }
-            //when {
+            when {
                 // Only say hello if a "greeting" is requested
-             //   expression { params.sonar == true }
-            //}
-            steps {   
-                powershell label: '', script: 'mvn clean package'
-                //script {
-                 //   if (params.sonar == true) {                
-                  //      withSonarQubeEnv(credentialsId: 'VMsonar') {
-                   //         sh 'mvn sonar:sonar'
-                    //    }
-                    //}
-                
-                //}
+                expression { params.sonar == true }
             }
-             
-        }*/
+            steps {   
+                powershell label: '', script: 'mvn clean package'               
+                withSonarQubeEnv(credentialsId: 'VMsonar') {
+                            sh 'mvn sonar:sonar'
+                }
+            }
+                
+         }
         
         stage('build and deploy') {
             tools {
@@ -47,7 +42,7 @@ pipeline {
         
         /*stage('analysis') {
             steps {
-            withSonarQubeEnv(credentialsId: 'VMsonar') {
+            withSonarQubeEnv('sonar') {
                             sh 'mvn sonar:sonar'
                         }
             }
