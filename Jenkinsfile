@@ -18,11 +18,12 @@ pipeline {
              //   expression { params.sonar == true }
             //}
             steps {   
-                    //powershell label: '', script: 'mvn clean package'
+                powershell label: '', script: 'mvn clean package'
                 script {
-                    if (params.sonar == true) {
-                        powershell label: '', script: 'mvn clean package'
-                        //echo 'I only execute on the master branch'
+                    if (params.sonar == true) {                
+                        withSonarQubeEnv {
+                            sh 'mvn sonar:sonar'
+                        }
                     }
                 }
             }
