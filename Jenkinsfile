@@ -30,10 +30,12 @@ pipeline {
              
         }
         
-        stage('sonar') {
+        stage('analysis') {
+            steps {
             withSonarQubeEnv(credentialsId: 'VMsonar') {
                             sh 'mvn sonar:sonar'
                         }
+            }
         }
         
         stage('archive') {
