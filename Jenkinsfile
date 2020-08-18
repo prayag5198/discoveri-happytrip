@@ -18,7 +18,7 @@ pipeline {
                 expression { params.sonar == true }
             }
             steps {   
-                    echo "Hello, bitwiseman!"
+                    powershell label: '', script: 'mvn clean package'
             }
              
         }
