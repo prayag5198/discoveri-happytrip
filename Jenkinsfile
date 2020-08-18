@@ -13,19 +13,14 @@ pipeline {
                 jdk 'jdk8'
                 maven 'Maven'
             }
-            steps {
-                //powershell label: '', script: 'mvn clean package'
-                script{
-                if (${params.sonar} == 1) {
-                    mvn clean install
-                    mvn sonar:sonar
-                }
-                }
-               // if test ${params.sonar} -eq 1 
-                //                    then
-                 //                               deploy contextPath: 'htrip-pipeline', war: '**/*.wa'
-                  //                          fi'''
+            when {
+                // Only say hello if a "greeting" is requested
+                expression { params.sonar == true }
             }
+            steps {   
+                    echo "Hello, bitwiseman!"
+            }
+             
         }
         
         stage('archive') {
