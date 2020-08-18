@@ -15,8 +15,10 @@ pipeline {
             }
             steps {
                 powershell label: '', script: 'mvn clean package'
+                script{
                 if (${params.sonar} == 1) {
                     sh label: '', script: 'mvn sonar:sonar'
+                }
                 }
                // if test ${params.sonar} -eq 1 
                 //                    then
