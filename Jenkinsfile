@@ -19,7 +19,7 @@ pipeline {
             }
             steps {   
                 powershell label: '', script: 'mvn clean package'               
-                withSonarQubeEnv('sonar) {
+                withSonarQubeEnv('sonar') {
                             sh 'mvn sonar:sonar'
                 }
             }
