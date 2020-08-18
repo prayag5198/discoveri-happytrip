@@ -8,7 +8,7 @@ pipeline {
     }    
     stages {
         
-        stage('build') {
+      /*  stage('build') {
             tools {
                 jdk 'jdk8'
                 maven 'Maven'
@@ -25,18 +25,34 @@ pipeline {
                    //         sh 'mvn sonar:sonar'
                     //    }
                     //}
+                
                 //}
             }
              
+        }*/
+        
+        stage('build and deploy') {
+            tools {
+                jdk 'jdk8'
+                maven 'Maven'
+            }
+            when {
+                 Only say hello if a "greeting" is requested
+                expression { params.deploy == true }
+            }
+            steps {
+                powershell label: '', script: 'mvn clean package'
+                deploy adapters: [tomcat7(credentialsId: 'tomcat-latest', path: '', url: 'http://localhost:8081/')], contextPath: 'htrip-pipeline', war: '**/*.war'
+            }
         }
         
-        stage('analysis') {
+        /*stage('analysis') {
             steps {
             withSonarQubeEnv(credentialsId: 'VMsonar') {
                             sh 'mvn sonar:sonar'
                         }
             }
-        }
+        }*/
         
         stage('archive') {
             steps {
