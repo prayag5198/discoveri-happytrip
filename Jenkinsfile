@@ -19,15 +19,21 @@ pipeline {
             //}
             steps {   
                 powershell label: '', script: 'mvn clean package'
-                script {
-                    if (params.sonar == true) {                
-                        withSonarQubeEnv(credentialsId: 'VMsonar') {
-                            sh 'mvn sonar:sonar'
-                        }
-                    }
-                }
+                //script {
+                 //   if (params.sonar == true) {                
+                  //      withSonarQubeEnv(credentialsId: 'VMsonar') {
+                   //         sh 'mvn sonar:sonar'
+                    //    }
+                    //}
+                //}
             }
              
+        }
+        
+        stage('sonar') {
+            withSonarQubeEnv(credentialsId: 'VMsonar') {
+                            sh 'mvn sonar:sonar'
+                        }
         }
         
         stage('archive') {
