@@ -18,9 +18,9 @@ pipeline {
                 expression { params.sonar == true }
             }
             steps {   
-                powershell label: '', script: 'mvn clean package'               
+                //powershell label: '', script: 'mvn clean package'               
                 withSonarQubeEnv('sonar') {
-                            sh 'mvn sonar:sonar'
+                      sh 'mvn sonar:sonar'
                 }
             }
                 
@@ -40,13 +40,6 @@ pipeline {
             }
         }
         
-        /*stage('analysis') {
-            steps {
-            withSonarQubeEnv('sonar') {
-                            sh 'mvn sonar:sonar'
-                        }
-            }
-        }*/
         
         stage('archive') {
             steps {
