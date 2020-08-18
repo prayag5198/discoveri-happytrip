@@ -15,10 +15,13 @@ pipeline {
             }
             steps {
                 powershell label: '', script: 'mvn clean package'
-                sh label: '', script: '''if test ${params.sonar} -eq 1 
-                                            then
-                                                mvn sonar:sonar
-                                            fi'''
+                if (${params.sonar} == 1) {
+                    sh label: '', script: 'mvn sonar:sonar'
+                }
+               // if test ${params.sonar} -eq 1 
+                //                    then
+                 //                               deploy contextPath: 'htrip-pipeline', war: '**/*.wa'
+                  //                          fi'''
             }
         }
         
