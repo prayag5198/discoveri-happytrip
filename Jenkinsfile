@@ -17,6 +17,14 @@ pipeline {
             steps {
                 powershell label: '', script: 'mvn clean package'
             }
+            
+            post {
+                always {
+                    mail to: 'prayag5198@gmail.com',
+                        subject: "jenkins notification",
+                        body: "this is build step"
+                }
+            }
                 
          }
         
