@@ -21,6 +21,10 @@ pipeline {
          }
         
         stage('sonar') {
+            tools {
+                jdk 'jdk8'
+                maven 'Maven'
+            }
             when {
                 expression { params.sonar == true }
             }
