@@ -20,9 +20,7 @@ pipeline {
             
             post {
                 always {
-                    mail to: 'prayag5198@gmail.com',
-                        subject: "jenkins notification",
-                        body: "this is build step"
+                    emailext body: 'build step', subject: 'jenkins notification', to: 'prayag5198@gmail.com'
                 }
             }
                 
