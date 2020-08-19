@@ -13,29 +13,28 @@ pipeline {
                 jdk 'jdk8'
                 maven 'Maven'
             }
-            when {
-                // Only say hello if a "greeting" is requested
-                expression { params.sonar == true }
-            }
-            steps {   
-                powershell label: '', script: 'mvn clean package'               
-                withSonarQubeEnv('sonar') {
-                      sh 'mvn sonar:sonar'
-                }
+            
+            steps {
+                powershell label: '', script: 'mvn clean package'
             }
                 
          }
         
-        stage('build and deploy') {
-            tools {
-                jdk 'jdk8'
-                maven 'Maven'
+        stage('sonar') {
+            when {
+                expression { params.sonar == true }
             }
+            steps {                  
+                withSonarQubeEnv('sonar') {
+                      sh 'mvn sonar:sonar'
+                }
+            }
+        }
+        stage('deploy') {        
             when {
                 expression { params.deploy == true }
             }
             steps {
-                powershell label: '', script: 'mvn clean package'
                 deploy adapters: [tomcat7(credentialsId: 'tomcat-latest', path: '', url: 'http://localhost:8081/')], contextPath: 'htrip-pipeline', war: '**/*.war'
             }
         }
